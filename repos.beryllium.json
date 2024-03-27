@@ -10,15 +10,12 @@
     "withKernelSU": true,
     "toolchains": [
       {
-        "repo": "https://github.com/Akitlove/android-kernel-tools",
-        "branch": "clang13",
-        "name": "clang13",
         "binPath": ["./bin"]
       }
     ],
     "params": {
       "ARCH": "arm64",
-      "CC": "clang13/clang/host/linux-x86/clang-r428724/bin/clang",
+      "CC": "bin/clang",
       "externalCommand": {
         "CROSS_COMPILE": "clang13/linaro-gcc-4.9/aarch64-linux-gnu/bin/aarch64-linux-gnu-",
         "CROSS_COMPILE_ARM32": "clang13/linaro-gcc-4.9/arm-linux-gnueabi/bin/arm-linux-gnueabi-",
