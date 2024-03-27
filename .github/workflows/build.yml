@@ -109,6 +109,7 @@ jobs:
           arch: ${{ steps.generate-args.outputs.ARCH }}
         if: ${{ env.withKernelSU == 'true' }}
         run: |
+          cd kernel
           curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
           if grep -q CONFIG_KSU= arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}; then
             sed -i 's/# CONFIG_KSU is not set/CONFIG_KSU=y/' arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
