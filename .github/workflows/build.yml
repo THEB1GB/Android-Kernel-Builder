@@ -41,14 +41,7 @@ jobs:
       WORKSPACE: ${{ github.workspace }}
 
       builddate: "${{ needs.Set-repos.outputs.builddate }}"
-
-      KERNEL_NAME: ${{ matrix.repos.kernelSource.name }}
-      KERNEL_REPO: ${{ matrix.repos.kernelSource.repo }}
-      KERNEL_BRANCH: ${{ matrix.repos.kernelSource.branch }}
-      KERNEL_DEVICE: ${{ matrix.repos.kernelSource.device }}
-
-      DEFCONFIG_NAME: ${{ matrix.repos.kernelSource.defconfig }}
-
+      
       withKernelSU: ${{ matrix.repos.withKernelSU }}
       useAnykernel: ${{ matrix.repos.AnyKernel3.use }}
       release: ${{ matrix.repos.AnyKernel3.release }}
@@ -66,13 +59,11 @@ jobs:
           ANYKERNEL_BRANCH=$(echo $params | jq -r ".branch")
           git clone --recursive --depth=1 -j $(nproc) --branch $ANYKERNEL_BRANCH $ANYKERNEL_REPO AnyKernel3
 
-          echo "🤔 Setup Anykernel3 => ($ANYKERNEL_REPO)"
+          echo "Setup Anykernel3 => ($ANYKERNEL_REPO)"
 
-      - name: "🌟 Clone kernel source => (${{ env.KERNEL_REPO }})"
+      - name: "Download kernel source"
         run: |
-          git clone --recursive --depth=1 -j $(nproc) --branch $KERNEL_BRANCH $KERNEL_REPO $KERNEL_NAME
-
-          echo "🤔 Clone kernel source => ($KERNEL_REPO)"
+          git clone https://gitlab.com/MT6768Lab/KernelTree.git -b 13-stable kernel --depth=1
 
       - name: "zyc-clang"
         run: |
